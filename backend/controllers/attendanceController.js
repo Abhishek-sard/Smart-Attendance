@@ -1,4 +1,4 @@
-const Attendance = require('../models/Attendance');
+import Attendance from '../models/Attendance';
 
 // @desc    Mark attendance (Manual)
 // @route   POST /api/attendance
@@ -114,4 +114,4 @@ const markAttendanceQR = async (req, res) => {
     }
 };
 
-module.exports = { markAttendance, getAttendance, getMyAttendance, markAttendanceQR };
+export default { markAttendance, getAttendance, getMyAttendance, markAttendanceQR };

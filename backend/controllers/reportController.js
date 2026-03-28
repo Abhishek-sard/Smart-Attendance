@@ -1,10 +1,8 @@
-const Attendance = require('../models/Attendance');
-const Class = require('../models/Class');
-const User = require('../models/User');
+import Class from '../models/Class';
+import User from '../models/User';
+import Attendance from '../models/Attendance';
 
-// @desc    Get Admin/Teacher Dashboard Stats
-// @route   GET /api/reports/dashboard-stats
-// @access  Private/Admin/Teacher
+
 const getDashboardStats = async (req, res) => {
     try {
         const totalStudents = await User.countDocuments({ role: 'student' });
@@ -73,4 +71,5 @@ const getClassReport = async (req, res) => {
     }
 };
 
-module.exports = { getDashboardStats, getClassReport };
+
+export default { getDashboardStats, getClassReport };

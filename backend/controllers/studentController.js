@@ -1,4 +1,4 @@
-const Attendance = require('../models/Attendance');
+import Attendance from '../models/Attendance';
 
 // @desc    Get my attendance
 // @route   GET /api/attendance/my-attendance
@@ -21,4 +21,5 @@ const getMyAttendance = async (req, res) => {
     }
 };
 
-module.exports = { getMyAttendance };
+
+export default { getMyAttendance };

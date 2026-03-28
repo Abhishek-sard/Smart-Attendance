@@ -1,5 +1,6 @@
-const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+
+import User from '../models/User';
+import bcrypt from 'bcryptjs';
 
 // @desc    Get all users
 // @route   GET /api/users
@@ -62,4 +63,5 @@ const deleteUser = async (req, res) => {
     }
 };
 
-module.exports = { getUsers, createUser, deleteUser };
+
+export default { getUsers, createUser, deleteUser };

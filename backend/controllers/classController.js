@@ -1,8 +1,7 @@
-const Class = require('../models/Class');
 
-// @desc    Get all classes
-// @route   GET /api/classes
-// @access  Private/Admin/Teacher
+import Class from '../models/Class';
+
+
 const getClasses = async (req, res) => {
     try {
         let query = {};
@@ -71,4 +70,4 @@ const addStudentToClass = async (req, res) => {
     }
 }
 
-module.exports = { getClasses, createClass, addStudentToClass };
+export default { getClasses, createClass, addStudentToClass };

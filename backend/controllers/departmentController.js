@@ -1,4 +1,5 @@
-const Department = require('../models/Department');
+
+import Department from '../models/Department';
 
 // @desc    Get all departments
 // @route   GET /api/departments
@@ -52,4 +53,4 @@ const deleteDepartment = async (req, res) => {
     }
 };
 
-module.exports = { getDepartments, createDepartment, deleteDepartment };
+export default { getDepartments, createDepartment, deleteDepartment };

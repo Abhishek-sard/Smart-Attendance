@@ -1,4 +1,5 @@
-const Leave = require('../models/Leave');
+
+import Leave from '../models/Leave';
 
 // @desc    Apply for leave
 // @route   POST /api/leaves
@@ -66,4 +67,5 @@ const updateLeaveStatus = async (req, res) => {
     }
 };
 
-module.exports = { applyLeave, getMyLeaves, getAllLeaves, updateLeaveStatus };
+
+export default { applyLeave, getMyLeaves, getAllLeaves, updateLeaveStatus };
