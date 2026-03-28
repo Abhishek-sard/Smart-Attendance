@@ -114,4 +114,4 @@ const markAttendanceQR = async (req, res) => {
     }
 };
 
-export default { markAttendance, getAttendance, getMyAttendance, markAttendanceQR };
+export  { markAttendance, getAttendance, getMyAttendance, markAttendanceQR };

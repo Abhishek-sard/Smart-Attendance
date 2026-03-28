@@ -53,4 +53,4 @@ const deleteDepartment = async (req, res) => {
     }
 };
 
-export default { getDepartments, createDepartment, deleteDepartment };
+export  { getDepartments, createDepartment, deleteDepartment };

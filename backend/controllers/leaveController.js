@@ -68,4 +68,4 @@ const updateLeaveStatus = async (req, res) => {
 };
 
 
-export default { applyLeave, getMyLeaves, getAllLeaves, updateLeaveStatus };
+export  { applyLeave, getMyLeaves, getAllLeaves, updateLeaveStatus };

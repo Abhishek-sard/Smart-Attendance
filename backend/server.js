@@ -1,19 +1,23 @@
+import dns from 'dns';
+dns.setServers(['8.8.8.8', '8.8.4.4']);
+
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import dns from "node:dns/promises";
 
-import authRoutes from "./routes/authRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import departmentRoutes from "./routes/departmentRoutes.js";
-import classRoutes from "./routes/classRoutes.js";
-import attendanceRoutes from "./routes/attendanceRoutes.js";
-import leaveRoutes from "./routes/leaveRoutes.js";
-import reportRoutes from "./routes/reportRoutes.js";
+
+
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import departmentRoutes from './routes/departmentRoutes.js';
+import classRoutes from './routes/classRoutes.js';
+import attendanceRoutes from './routes/attendanceRoutes.js';
+import leaveRoutes from './routes/leaveRoutes.js';
+import reportRoutes from './routes/reportRoutes.js';
 
 dotenv.config();
-dns.setServers(['8.8.8.8', '8.8.4.4']);
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -27,7 +31,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/digital_att
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.error('MongoDB Connection Error:', err));
 
-// Routes (✅ Use imported variables)
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/departments', departmentRoutes);

@@ -25,4 +25,4 @@ const authorizeRoles = (...roles) => {
     };
 };
 
-export default { verifyToken, authorizeRoles };
+export  { verifyToken, authorizeRoles };

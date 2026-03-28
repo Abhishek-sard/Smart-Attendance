@@ -70,4 +70,4 @@ const addStudentToClass = async (req, res) => {
     }
 }
 
-export default { getClasses, createClass, addStudentToClass };
+export  { getClasses, createClass, addStudentToClass };

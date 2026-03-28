@@ -72,4 +72,4 @@ const getClassReport = async (req, res) => {
 };
 
 
-export default { getDashboardStats, getClassReport };
+export  { getDashboardStats, getClassReport };

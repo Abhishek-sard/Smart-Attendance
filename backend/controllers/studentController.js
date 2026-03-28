@@ -22,4 +22,4 @@ const getMyAttendance = async (req, res) => {
 };
 
 
-export default { getMyAttendance };
+export  { getMyAttendance };
