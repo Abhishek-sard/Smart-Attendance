@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+body {
+    font-family: 'Inter', sans-serif;
+    @apply bg-slate-50 text-slate-800 antialiased;
+}
