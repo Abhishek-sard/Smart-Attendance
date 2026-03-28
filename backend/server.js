@@ -4,13 +4,21 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dns from "node:dns/promises";
 
+import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import departmentRoutes from "./routes/departmentRoutes.js";
+import classRoutes from "./routes/classRoutes.js";
+import attendanceRoutes from "./routes/attendanceRoutes.js";
+import leaveRoutes from "./routes/leaveRoutes.js";
+import reportRoutes from "./routes/reportRoutes.js";
 
+dotenv.config();
 dns.setServers(['8.8.8.8', '8.8.4.4']);
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-dotenv.config();
 app.use(cors());
 app.use(express.json());
 
@@ -19,14 +27,14 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/digital_att
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.error('MongoDB Connection Error:', err));
 
-// Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/departments', require('./routes/departmentRoutes'));
-app.use('/api/classes', require('./routes/classRoutes'));
-app.use('/api/attendance', require('./routes/attendanceRoutes'));
-app.use('/api/leaves', require('./routes/leaveRoutes'));
-app.use('/api/reports', require('./routes/reportRoutes'));
+// Routes (✅ Use imported variables)
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/departments', departmentRoutes);
+app.use('/api/classes', classRoutes);
+app.use('/api/attendance', attendanceRoutes);
+app.use('/api/leaves', leaveRoutes);
+app.use('/api/reports', reportRoutes);
 
 app.get('/', (req, res) => {
     res.send('Digital Attendant Backend Running');
