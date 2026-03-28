@@ -1,7 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const { getUsers, createUser, deleteUser } = require('../controllers/userController');
-const { verifyToken, authorizeRoles } = require('../middleware/authMiddleware');
+
+
+import express from "express";
+import { Router } from "express";
+import { getUsers, createUser, deleteUser } from '../controllers/userController';
+import { verifyToken, authorizeRoles } from '../middleware/authMiddleware';
 
 // All routes here require Admin role
 router.use(verifyToken);
@@ -11,4 +13,4 @@ router.get('/', getUsers);
 router.post('/', createUser);
 router.delete('/:id', deleteUser);
 
-module.exports = router;
+export default router;

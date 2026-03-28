@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const { applyLeave, getMyLeaves, getAllLeaves, updateLeaveStatus } = require('../controllers/leaveController');
-const { verifyToken, authorizeRoles } = require('../middleware/authMiddleware');
+
+import express from "express";
+import { Router } from "express";
+import { applyLeave, getMyLeaves, getAllLeaves, updateLeaveStatus } from '../controllers/leaveController';
+import { verifyToken, authorizeRoles } from '../middleware/authMiddleware';
 
 router.use(verifyToken);
 
@@ -10,4 +11,4 @@ router.get('/my', authorizeRoles('student'), getMyLeaves);
 router.get('/', authorizeRoles('admin', 'teacher'), getAllLeaves);
 router.put('/:id', authorizeRoles('admin', 'teacher'), updateLeaveStatus);
 
-module.exports = router;
+export default router;

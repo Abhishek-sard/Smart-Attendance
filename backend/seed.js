@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const bcrypt = require('bcryptjs');
-const User = require('./models/User');
-const Department = require('./models/Department');
-const Class = require('./models/Class');
-const Attendance = require('./models/Attendance');
-const Leave = require('./models/Leave');
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
+import User from './models/User';
+import Department from './models/Department';
+import Class from './models/Class';
+import Attendance from './models/Attendance';
+import Leave from './models/Leave';
 
 dotenv.config();
 

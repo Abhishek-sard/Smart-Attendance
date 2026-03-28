@@ -1,21 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const { register, login } = require('../controllers/authController');
-const { verifyToken } = require('../middleware/authMiddleware');
+import express from 'express';
+import { Router } from 'express';
+import { register, login } from '../controllers/authController';
+import { verifyToken } from '../middleware/authMiddleware';
 
-// @route   POST api/auth/register
-// @desc    Register a user (Usually Admin only, but open for initial setup)
-// @access  Public (for now)
+
 router.post('/register', register);
 
-// @route   POST api/auth/login
-// @desc    Authenticate user & get token
-// @access  Public
+
 router.post('/login', login);
 
-// @route   GET api/auth/user
-// @desc    Get logged in user
-// @access  Private
+
 router.get('/user', verifyToken, async (req, res) => {
     try {
         const User = require('../models/User');
@@ -27,4 +21,4 @@ router.get('/user', verifyToken, async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

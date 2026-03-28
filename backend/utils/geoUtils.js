@@ -15,4 +15,5 @@ const deg2rad = (deg) => {
     return deg * (Math.PI / 180);
 };
 
-module.exports = { getDistanceFromLatLonInMeters };
+
+export default { getDistanceFromLatLonInMeters };

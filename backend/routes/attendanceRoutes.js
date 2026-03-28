@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const { markAttendance, getAttendance, getMyAttendance, markAttendanceQR } = require('../controllers/attendanceController');
-const { verifyToken, authorizeRoles } = require('../middleware/authMiddleware');
+import express from 'express';
+import { Router } from 'express';
+import { markAttendance, getAttendance, getMyAttendance, markAttendanceQR } from '../controllers/attendanceController';
+import { verifyToken, authorizeRoles } from '../middleware/authMiddleware';
 
 router.use(verifyToken);
 
@@ -12,4 +12,4 @@ router.get('/student/me', authorizeRoles('admin', 'teacher', 'student'), getMyAt
 router.get('/:classId', authorizeRoles('admin', 'teacher'), getAttendance);
 
 
-module.exports = router;
+export default router;
