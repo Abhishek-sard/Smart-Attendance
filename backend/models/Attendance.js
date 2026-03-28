@@ -37,4 +37,4 @@ const attendanceSchema = new mongoose.Schema({
 // Note: Date needs to be normalized (set to midnight) for this index to work effectively for "daily" attendance
 attendanceSchema.index({ student: 1, class: 1, date: 1 }, { unique: true });
 
-export default { mongoose.model('Attendance', attendanceSchema) };
+export default mongoose.model('Attendance', attendanceSchema);

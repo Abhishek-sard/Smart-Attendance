@@ -1,4 +1,4 @@
-import Attendance from '../models/Attendance';
+import Attendance from '../models/Attendance.js';
 
 // @desc    Get my attendance
 // @route   GET /api/attendance/my-attendance

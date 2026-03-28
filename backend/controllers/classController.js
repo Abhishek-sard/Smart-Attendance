@@ -1,5 +1,5 @@
 
-import Class from '../models/Class';
+import Class from '../models/Class.js';
 
 
 const getClasses = async (req, res) => {

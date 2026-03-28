@@ -1,7 +1,7 @@
 import express from 'express';
-import { Router } from 'express';
-import { markAttendance, getAttendance, getMyAttendance, markAttendanceQR } from '../controllers/attendanceController';
-import { verifyToken, authorizeRoles } from '../middleware/authMiddleware';
+import { markAttendance, getAttendance, getMyAttendance, markAttendanceQR } from '../controllers/attendanceController.js';
+import { verifyToken, authorizeRoles } from '../middleware/authMiddleware.js';
+const router = express.Router();
 
 router.use(verifyToken);
 

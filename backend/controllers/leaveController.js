@@ -1,5 +1,5 @@
 
-import Leave from '../models/Leave';
+import Leave from '../models/Leave.js';
 
 // @desc    Apply for leave
 // @route   POST /api/leaves

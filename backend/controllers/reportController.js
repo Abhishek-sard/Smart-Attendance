@@ -1,6 +1,6 @@
-import Class from '../models/Class';
-import User from '../models/User';
-import Attendance from '../models/Attendance';
+import Class from '../models/Class.js';
+import User from '../models/User.js';
+import Attendance from '../models/Attendance.js';
 
 
 const getDashboardStats = async (req, res) => {

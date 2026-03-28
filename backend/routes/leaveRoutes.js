@@ -1,8 +1,9 @@
 
 import express from "express";
-import { Router } from "express";
-import { applyLeave, getMyLeaves, getAllLeaves, updateLeaveStatus } from '../controllers/leaveController';
-import { verifyToken, authorizeRoles } from '../middleware/authMiddleware';
+import { applyLeave, getMyLeaves, getAllLeaves, updateLeaveStatus } from '../controllers/leaveController.js';
+import { verifyToken, authorizeRoles } from '../middleware/authMiddleware.js';
+
+const router = express.Router();
 
 router.use(verifyToken);
 

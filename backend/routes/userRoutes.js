@@ -1,9 +1,7 @@
-
-
 import express from "express";
-import { Router } from "express";
-import { getUsers, createUser, deleteUser } from '../controllers/userController';
-import { verifyToken, authorizeRoles } from '../middleware/authMiddleware';
+import { getUsers, createUser, deleteUser } from '../controllers/userController.js';
+import { verifyToken, authorizeRoles } from '../middleware/authMiddleware.js';
+const router = express.Router();
 
 // All routes here require Admin role
 router.use(verifyToken);

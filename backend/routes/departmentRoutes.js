@@ -1,8 +1,8 @@
 
 import express from "express";
-import { Router } from "express";
-import { getDepartments, createDepartment, deleteDepartment } from '../controllers/departmentController';
-import { verifyToken, authorizeRoles } from '../middleware/authMiddleware';
+import { getDepartments, createDepartment, deleteDepartment } from '../controllers/departmentController.js';
+import { verifyToken, authorizeRoles } from '../middleware/authMiddleware.js';
+const router = express.Router();
 
 router.use(verifyToken);
 

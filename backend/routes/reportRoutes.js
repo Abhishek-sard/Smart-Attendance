@@ -1,7 +1,7 @@
 import express from "express";
-import { Router } from "express";
-import { getDashboardStats, getClassReport } from '../controllers/reportController';
-import { verifyToken, authorizeRoles } from '../middleware/authMiddleware';
+import { getDashboardStats, getClassReport } from '../controllers/reportController.js';
+import { verifyToken, authorizeRoles } from '../middleware/authMiddleware.js';
+const router = express.Router();
 
 router.use(verifyToken);
 router.use(authorizeRoles('admin', 'teacher'));
