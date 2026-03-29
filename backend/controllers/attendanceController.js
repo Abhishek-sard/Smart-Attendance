@@ -1,4 +1,6 @@
 import Attendance from '../models/Attendance.js';
+import Class from '../models/Class.js';
+import geoUtils from '../utils/geoUtils.js';
 
 // @desc    Mark attendance (Manual)
 // @route   POST /api/attendance
@@ -76,8 +78,13 @@ const markAttendanceQR = async (req, res) => {
         const studentId = req.user.id;
 
         // Verify class exists
-        const classObj = await require('../models/Class').findById(classId);
+        const classObj = await Class.findById(classId);
         if (!classObj) return res.status(404).json({ message: 'Class not found' });
+
+        // Verify student is enrolled in this class
+        if (!classObj.students.includes(studentId)) {
+            return res.status(403).json({ message: 'You are not enrolled in this class' });
+        }
 
         // Geofencing Check
         const { latitude, longitude } = req.body;
@@ -86,8 +93,7 @@ const markAttendanceQR = async (req, res) => {
                 return res.status(400).json({ message: 'Location data required' });
             }
 
-            const { getDistanceFromLatLonInMeters } = require('../utils/geoUtils');
-            const distance = getDistanceFromLatLonInMeters(
+            const distance = geoUtils.getDistanceFromLatLonInMeters(
                 latitude, longitude,
                 classObj.location.latitude, classObj.location.longitude
             );
@@ -101,7 +107,7 @@ const markAttendanceQR = async (req, res) => {
 
         // Mark attendance
         const record = await Attendance.findOneAndUpdate(
-            { student: studentId, class: classId, date: date },
+            { student: studentId, class: classId, date: new Date(date) },
             { $set: { status: 'Present', method: 'QR' } },
             { upsert: true, new: true }
         );
