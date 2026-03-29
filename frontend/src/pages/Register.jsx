@@ -4,6 +4,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { UserPlus, User, Mail, Lock, BookOpen, Phone, Briefcase } from 'lucide-react';
 
 const Register = () => {
+    const { register } = useAuth();
+    const navigate = useNavigate();
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
