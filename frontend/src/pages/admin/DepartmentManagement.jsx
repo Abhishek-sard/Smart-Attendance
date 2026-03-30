@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import AddDepartmentModal from '../../components/AddDepartmentModal';
+import API_BASE_URL from '../../config/api';
 
 const DepartmentManagement = () => {
     const [departments, setDepartments] = useState([]);
@@ -12,7 +13,7 @@ const DepartmentManagement = () => {
 
     const fetchDeps = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/departments', {
+            const res = await axios.get(`${API_BASE_URL}/departments`, {
                 headers: { 'x-auth-token': getToken() }
             });
             setDepartments(res.data);

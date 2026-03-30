@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 const AddDepartmentModal = ({ isOpen, onClose, onDepartmentAdded }) => {
     const [formData, setFormData] = useState({ name: '', code: '' });
@@ -9,7 +10,7 @@ const AddDepartmentModal = ({ isOpen, onClose, onDepartmentAdded }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/departments', formData, {
+            await axios.post(`${API_BASE_URL}/departments`, formData, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
             onDepartmentAdded();

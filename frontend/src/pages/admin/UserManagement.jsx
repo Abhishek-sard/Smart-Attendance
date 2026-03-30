@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
+import API_BASE_URL from '../../config/api';
 
 import AddUserModal from '../../components/AddUserModal';
 
@@ -15,7 +16,7 @@ const UserManagement = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/users', {
+            const res = await axios.get(`${API_BASE_URL}/users`, {
                 headers: { 'x-auth-token': getToken() }
             });
             setUsers(res.data);
@@ -33,7 +34,7 @@ const UserManagement = () => {
     const deleteUser = async (id) => {
         if (!window.confirm('Are you sure?')) return;
         try {
-            await axios.delete(`http://localhost:5000/api/users/${id}`, {
+            await axios.delete(`${API_BASE_URL}/users/${id}`, {
                 headers: { 'x-auth-token': getToken() }
             });
             setUsers(users.filter(u => u._id !== id));

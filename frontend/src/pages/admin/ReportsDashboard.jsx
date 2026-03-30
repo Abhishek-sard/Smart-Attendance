@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../config/api';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { saveAs } from 'file-saver';
 
@@ -35,7 +36,7 @@ const ReportsDashboard = () => {
     const fetchClassReport = async (classId) => {
         try {
             setSelectedClass(classId);
-            const res = await axios.get(`http://localhost:5000/api/reports/class/${classId}`, {
+            const res = await axios.get(`${API_BASE_URL}/reports/class/${classId}`, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
             setClassReport(res.data);

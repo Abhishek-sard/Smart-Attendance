@@ -10,11 +10,14 @@ const markAttendance = async (req, res) => {
         const { classId, date, records } = req.body;
         // records: [{ studentId, status, method }]
 
+        const normalizedDate = new Date(date);
+        normalizedDate.setUTCHours(0, 0, 0, 0);
+
         // Use bulkWrite for efficiency or loop
         // Loop is easier for now
         for (const record of records) {
             await Attendance.findOneAndUpdate(
-                { student: record.studentId, class: classId, date: date },
+                { student: record.studentId, class: classId, date: normalizedDate },
                 {
                     status: record.status,
                     method: record.method || 'Manual'
@@ -81,9 +84,12 @@ const markAttendanceQR = async (req, res) => {
         const classObj = await Class.findById(classId);
         if (!classObj) return res.status(404).json({ message: 'Class not found' });
 
-        // Verify student is enrolled in this class
-        if (!classObj.students.includes(studentId)) {
-            return res.status(403).json({ message: 'You are not enrolled in this class' });
+        // Auto-Enrollment: If student is not enrolled, add them to the class
+        const isEnrolled = classObj.students.some(id => id.toString() === studentId);
+        if (!isEnrolled) {
+            console.log(`Auto-enrolling student ${studentId} into class ${classId}`);
+            classObj.students.push(studentId);
+            await classObj.save();
         }
 
         // Geofencing Check
@@ -106,9 +112,18 @@ const markAttendanceQR = async (req, res) => {
         }
 
         // Mark attendance
+        const normalizedDate = new Date(date);
+        normalizedDate.setUTCHours(0, 0, 0, 0);
+
         const record = await Attendance.findOneAndUpdate(
-            { student: studentId, class: classId, date: new Date(date) },
-            { $set: { status: 'Present', method: 'QR' } },
+            { student: studentId, class: classId, date: normalizedDate },
+            { 
+                $set: { 
+                    status: 'Present', 
+                    method: 'QR',
+                    location: latitude && longitude ? { lat: latitude, lng: longitude } : undefined
+                } 
+            },
             { upsert: true, new: true }
         );
 

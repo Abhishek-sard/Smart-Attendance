@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import QRCodeGenerator from '../../components/QRCodeGenerator';
+import API_BASE_URL from '../../config/api';
 
 const MarkAttendance = () => {
     const { classId } = useParams();
@@ -18,7 +19,7 @@ const MarkAttendance = () => {
     useEffect(() => {
         const fetchStudentsOnly = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/classes', {
+                const res = await axios.get(`${API_BASE_URL}/classes`, {
                     headers: { 'x-auth-token': localStorage.getItem('token') }
                 });
                 const cls = res.data.find(c => c._id === classId);
@@ -35,7 +36,7 @@ const MarkAttendance = () => {
     // 2. Fetch current attendance records for this date
     const fetchAttendanceRecords = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/attendance/${classId}?date=${date}`, {
+            const res = await axios.get(`${API_BASE_URL}/attendance/${classId}?date=${date}`, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
 
@@ -92,7 +93,7 @@ const MarkAttendance = () => {
         }));
 
         try {
-            await axios.post('http://localhost:5000/api/attendance', {
+            await axios.post(`${API_BASE_URL}/attendance`, {
                 classId,
                 date,
                 records

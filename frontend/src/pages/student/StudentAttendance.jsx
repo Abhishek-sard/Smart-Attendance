@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../config/api';
 
 const StudentAttendance = () => {
     const [attendance, setAttendance] = useState([]);
@@ -8,7 +9,7 @@ const StudentAttendance = () => {
     useEffect(() => {
         const fetchAttendance = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/attendance/student/me', {
+                const res = await axios.get(`${API_BASE_URL}/attendance/student/me`, {
                     headers: { 'x-auth-token': localStorage.getItem('token') }
                 });
                 setAttendance(res.data);

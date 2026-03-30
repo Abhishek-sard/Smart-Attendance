@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../config/api';
 
 const LeaveApplication = () => {
     const [leaves, setLeaves] = useState([]);
@@ -8,7 +9,7 @@ const LeaveApplication = () => {
 
     const fetchLeaves = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/leaves/my', {
+            const res = await axios.get(`${API_BASE_URL}/leaves/me`, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
             setLeaves(res.data);
@@ -26,7 +27,7 @@ const LeaveApplication = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/leaves', formData, {
+            await axios.post(`${API_BASE_URL}/leaves`, formData, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
             setFormData({ startDate: '', endDate: '', reason: '' });

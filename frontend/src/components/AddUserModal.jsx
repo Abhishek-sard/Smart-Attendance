@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 const AddUserModal = ({ isOpen, onClose, onUserAdded }) => {
     const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ const AddUserModal = ({ isOpen, onClose, onUserAdded }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/users', formData, {
+            await axios.post(`${API_BASE_URL}/users`, formData, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
             onUserAdded();

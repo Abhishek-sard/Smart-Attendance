@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../config/api';
 import { Link } from 'react-router-dom';
 
 const TeacherClasses = () => {
@@ -9,7 +10,7 @@ const TeacherClasses = () => {
     useEffect(() => {
         const fetchClasses = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/classes', {
+                const res = await axios.get(`${API_BASE_URL}/classes`, {
                     headers: { 'x-auth-token': localStorage.getItem('token') }
                 });
                 setClasses(res.data);

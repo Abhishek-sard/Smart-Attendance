@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../config/api';
 
 const LeaveManagement = () => {
     const [leaves, setLeaves] = useState([]);
@@ -7,7 +8,7 @@ const LeaveManagement = () => {
 
     const fetchLeaves = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/leaves', {
+            const res = await axios.get(`${API_BASE_URL}/leaves`, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
             setLeaves(res.data);
@@ -24,7 +25,7 @@ const LeaveManagement = () => {
 
     const updateStatus = async (id, status) => {
         try {
-            await axios.put(`http://localhost:5000/api/leaves/${id}`, { status }, {
+            await axios.put(`${API_BASE_URL}/leaves/${id}`, { status }, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
             fetchLeaves();

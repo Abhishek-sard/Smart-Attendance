@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 const AddClassModal = ({ isOpen, onClose, onClassAdded }) => {
     const [formData, setFormData] = useState({
@@ -18,12 +19,12 @@ const AddClassModal = ({ isOpen, onClose, onClassAdded }) => {
                 if (!token) return;
 
                 try {
-                    const depsRes = await axios.get('http://localhost:5000/api/departments', {
+                    const depsRes = await axios.get(`${API_BASE_URL}/departments`, {
                         headers: { 'x-auth-token': token }
                     });
                     setDepartments(depsRes.data);
 
-                    const usersRes = await axios.get('http://localhost:5000/api/users', {
+                    const usersRes = await axios.get(`${API_BASE_URL}/users`, {
                         headers: { 'x-auth-token': token }
                     });
                     setTeachers(usersRes.data.filter(u => u.role === 'teacher'));
@@ -48,7 +49,7 @@ const AddClassModal = ({ isOpen, onClose, onClassAdded }) => {
                     radius: formData.radius || 100
                 }
             };
-            await axios.post('http://localhost:5000/api/classes', payload, {
+            await axios.post(`${API_BASE_URL}/classes`, payload, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
             onClassAdded();

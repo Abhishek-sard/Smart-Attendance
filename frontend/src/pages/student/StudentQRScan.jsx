@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import { MapPin, Camera, AlertCircle, CheckCircle } from 'lucide-react';
+import API_BASE_URL from '../../config/api';
 
 const StudentQRScan = () => {
     const [scanResult, setScanResult] = useState('');
+    const [scannedData, setScannedData] = useState(null);
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [location, setLocation] = useState(null);
@@ -36,9 +38,15 @@ const StudentQRScan = () => {
                 // Handle the scanned code as you like, for example:
                 console.log(`Code matched = ${decodedText}`, decodedResult);
                 setScanResult(decodedText);
+                try {
+                    const parsed = JSON.parse(decodedText);
+                    setScannedData(parsed);
+                    setMessage('QR Code Scanned! Verify details and submit.');
+                } catch (e) {
+                    setMessage('Invalid QR Code format.');
+                }
                 scanner.clear();
                 setScannerActive(false);
-                setMessage('QR Code Scanned! Ready to submit.');
             }
 
             function onScanFailure(error) {
@@ -96,14 +104,23 @@ const StudentQRScan = () => {
                 longitude: location?.longitude || null
             };
 
-            await axios.post('http://localhost:5000/api/attendance/qr', payload, {
+            await axios.post(`${API_BASE_URL}/attendance/qr`, payload, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
-            setMessage('Attendance Marked Successfully!');
+            setMessage('Success: Attendance Marked Successfully!');
             setScanResult('');
+            setScannedData(null);
         } catch (err) {
             console.error(err);
-            setMessage(err.response?.data?.message || 'Failed to mark attendance');
+            let errorMessage = err.response?.data?.message || 'Failed to mark attendance';
+            
+            // Add student ID to "not enrolled" error for easier debugging
+            if (errorMessage === 'You are not enrolled in this class') {
+                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                errorMessage += ` (Student ID: ${user.id || 'Unknown'})`;
+            }
+            
+            setMessage(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -161,9 +178,25 @@ const StudentQRScan = () => {
                         )}
                     </div>
                 ) : (
-                    <div className="bg-green-50 border border-green-200 p-3 rounded-lg flex items-center text-green-700">
-                        <CheckCircle size={20} className="mr-2" />
-                        QR Code Scanned Successfully
+                    <div className="space-y-4">
+                        <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
+                            <div className="flex items-center text-green-700 font-medium mb-2">
+                                <CheckCircle size={20} className="mr-2" />
+                                QR Code Scanned Successfully
+                            </div>
+                            {scannedData && (
+                                <div className="text-xs text-slate-600 bg-white/50 p-2 rounded border border-green-100">
+                                    <p><strong>Class ID:</strong> {scannedData.classId}</p>
+                                    <p><strong>Date:</strong> {scannedData.date}</p>
+                                </div>
+                            )}
+                        </div>
+                        <button
+                            onClick={() => { setScanResult(''); setScannedData(null); setMessage(''); }}
+                            className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center"
+                        >
+                            <Camera size={14} className="mr-1" /> Scan Again
+                        </button>
                     </div>
                 )}
             </div>

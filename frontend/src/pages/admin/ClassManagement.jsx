@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddClassModal from '../../components/AddClassModal';
+import API_BASE_URL from '../../config/api';
 
 const ClassManagement = () => {
     const [classes, setClasses] = useState([]);
@@ -9,7 +10,7 @@ const ClassManagement = () => {
 
     const fetchClasses = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/classes', {
+            const res = await axios.get(`${API_BASE_URL}/classes`, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
             setClasses(res.data);
@@ -27,7 +28,7 @@ const ClassManagement = () => {
     const deleteClass = async (id) => {
         if (!window.confirm('Are you sure?')) return;
         try {
-            await axios.delete(`http://localhost:5000/api/classes/${id}`, {
+            await axios.delete(`${API_BASE_URL}/classes/${id}`, {
                 headers: { 'x-auth-token': localStorage.getItem('token') }
             });
             setClasses(classes.filter(c => c._id !== id));
